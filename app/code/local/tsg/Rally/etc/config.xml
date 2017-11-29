@@ -1,0 +1,18 @@
+<config>
+    <modules>
+        <Tsg_Rally>
+                <version>0.1.0</version>
+        </Tsg_Rally>
+    </modules>
+    <frontend>
+        <routers>
+            <rally>
+                <use>standard</use>
+                <args>
+                    <module>Tsg_Rally</module>
+                    <frontName>rally</frontName>
+                </args>
+            </rally>
+        </routers>
+    </frontend>
+</config>

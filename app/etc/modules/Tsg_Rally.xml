@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Tsg_Rally>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Tsg_Rally>
+    </modules>
+</config>
