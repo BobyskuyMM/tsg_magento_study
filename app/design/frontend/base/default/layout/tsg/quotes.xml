@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <tsg_quotes_index_index>
+        <reference name="content">
+            <block type="tsg_quotes/content" name="quotes.all" />
+        </reference>
+    </tsg_quotes_index_index>
+
+    <tsg_quotes_index_view>
+        <reference name="content">
+            <block type="tsg_quotes/quote_content" name="quote.item" />
+        </reference>
+    </tsg_quotes_index_view>
+</layout>

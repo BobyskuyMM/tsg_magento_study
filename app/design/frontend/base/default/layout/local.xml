@@ -1,5 +1,18 @@
 <layout version="0.1.0">
-    <default>
-        <block type="page/html" name="root" output="toHtml" template="tsg/rally/simple_page.phtml" />
-    </default>
+
+    <rally_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>tsg/rally/simple_page.phtml</template>
+            </action>
+            <block type="page/template_links" name="top.links"/>
+            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml"/>
+        </reference>
+
+    </rally_index_index>
+
+    <rally_index_goodbye>
+        <update handle="rally_index_index"  />
+    </rally_index_goodbye>
+
 </layout>

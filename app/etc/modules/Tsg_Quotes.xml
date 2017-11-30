@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Tsg_Quotes>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Tsg_Quotes>
+    </modules>
+</config>
