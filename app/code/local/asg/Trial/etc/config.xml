@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_Trial>
+            <version>0.0.1</version>
+        </Asg_Trial>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <asgtrial>
+                    <file>asg_trial.xml</file>
+                </asgtrial>
+            </updates>
+        </layout>
+        <routers>
+            <asgtrial>
+                <use>standard</use>
+                <args>
+                    <module>Asg_Trial</module>
+                    <frontName>trial</frontName>
+                </args>
+            </asgtrial>
+        </routers>
+    </frontend>
+    <global>
+        <blocks>
+            <asgtrial>
+                <class>Asg_Trial_Block</class>
+            </asgtrial>
+        </blocks>
+    </global>
+
+</config>
