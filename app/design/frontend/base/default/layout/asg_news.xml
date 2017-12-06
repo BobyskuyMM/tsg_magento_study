@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<layout>
+
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/simplegrid.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/news.css</stylesheet></action>
+        </reference>
+    </default>
+
+    <asgnews_index_index>
+        <reference name="content">
+            <block type="core/template" template="asg_news/index.phtml" />
+        </reference>
+    </asgnews_index_index>
+
+
+    <asgnews_index_newsview>
+        <reference name="content">
+            <block type="asgnews/view" template="asg_news/view.phtml" />
+        </reference>
+    </asgnews_index_newsview>
+
+    <asgnews_index_pagination>
+        <reference name="content">
+            <block name="collection_news" type="asgnews/pagination" template="asg_news/pagination.phtml"/>
+        </reference>
+    </asgnews_index_pagination>
+
+    <asgnews_index_newslist>
+        <reference name="content">
+            <block type="asgnews/collection" name="collection" template="asg_news/collection.phtml" />
+        </reference>
+    </asgnews_index_newslist>
+
+</layout>

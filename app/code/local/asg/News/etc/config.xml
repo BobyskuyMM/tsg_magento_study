@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_News>
+            <version>0.0.1</version>
+        </Asg_News>
+    </modules>
+    <adminhtml>
+        <menu>
+            <asgnews module="asgnews">
+                <title>News</title>
+                <sort_order>77</sort_order>
+                <action>adminhtml/news</action>
+            </asgnews>
+        </menu>
+        <layout>
+            <updates>
+                <asgnews>
+                    <file>asg/news.xml</file>
+                </asgnews>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <asgnews before="Mage_Adminhtml">Asg_News_Adminhtml</asgnews>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <frontend>
+        <layout>
+            <updates>
+                <asgnews>
+                    <file>asg_news.xml</file>
+                </asgnews>
+            </updates>
+        </layout>
+        <routers>
+
+            <asgnews>
+                <use>standard</use>
+                <args>
+                    <module>Asg_News</module>
+                    <frontName>news</frontName>
+                </args>
+            </asgnews>
+
+        </routers>
+    </frontend>
+    <global>
+        <helpers>
+            <asgnews>
+                <class>Asg_News_Helper</class>
+            </asgnews>
+        </helpers>
+
+        <blocks>
+            <asgnews>
+                <class>Asg_News_Block</class>
+            </asgnews>
+        </blocks>
+        <models>
+            <asgnews>
+                <class>Asg_News_Model</class>
+                <resourceModel>asgnews_resource</resourceModel>
+            </asgnews>
+            <asgnews_resource>
+                <class>Asg_News_Model_Resource</class>
+                <entities>
+                    <table_news>
+                        <table>asg_news_entities</table>
+                    </table_news>
+                </entities>
+            </asgnews_resource>
+        </models>
+        <resources>
+            <asgnews_setup>
+                <setup>
+                    <module>Asg_News</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </asgnews_setup>
+            <asgnews_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </asgnews_write>
+            <asgnews_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </asgnews_read>
+
+        </resources>
+    </global>
+
+    <default>
+        <tab1>
+            <general>
+                <news_per_page>5</news_per_page>
+            </general>
+        </tab1>
+    </default>
+
+</config>

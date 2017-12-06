@@ -1,0 +1,36 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $collection = $this->getCollection(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('News List') ?></h1>
+</div>
+
+<?php if($collection->getSize()): ?>
+
+        <?php foreach ($collection as $obj): ?>
+
+                <div class="grid grid-pad news-item">
+                    <div class="col-1-1">
+                        <div class="content text-center">
+                            <a href="<?php echo $this->getRowUrl($obj); ?>">
+                                <h3><?php echo $obj->getTitle();?></h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="content">
+                            <img src="<?php echo  $this->getThumbnailUrl($obj->getImage());?>">
+                        </div>
+                    </div>
+                    <div class="col-1-2">
+                        <div class="content text-left">
+                            <h3><?php echo $this->catText($obj->getContent());?></h3>
+                        </div>
+                    </div>
+                </div>
+        <?php endforeach; ?>
+
+
+    <?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('The collection is empty.'); ?></p>
+<?php endif ?>
