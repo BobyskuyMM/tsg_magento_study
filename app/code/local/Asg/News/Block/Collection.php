@@ -47,19 +47,6 @@ class Asg_News_Block_Collection extends Mage_Core_Block_Template
     }
 
     /**
-     * function cat text
-     * @param $text
-     * @param int $start
-     * @param int $length
-     * @param string $encoding
-     * @return string
-     */
-    public function catText($text, $start = 0, $length = 80, $encoding = 'UTF-8')
-    {
-        return mb_substr($text, $start, $length, $encoding);
-    }
-
-    /**
      * @param Asg_News_Model_News $news
      * @return string
      */

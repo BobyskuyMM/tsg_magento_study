@@ -1,0 +1,20 @@
+<?php
+
+/** @var Asg_News_Model_News $news */
+$news = $this->getCurrentNews();
+
+$imageUrl = $this->getImageUrl($news);
+
+?>
+
+<h1 class="text-center"><?php echo $this->escapeHtml($news->getTitle()); ?></h1>
+
+<?php if ("" != $imageUrl) :?>
+    <p>
+        <img width="100%" src="<?php echo $imageUrl; ?>">
+    </p>
+<?php endif;?>
+
+<p>
+    <?php echo $this->escapeHtml($news->getContent());?>
+</p>

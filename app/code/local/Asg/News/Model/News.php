@@ -2,6 +2,11 @@
 
 class Asg_News_Model_News extends Mage_Core_Model_Abstract
 {
+    /**
+     * @var Allowed Image Extensions for uploading
+     */
+    private $allowedImageExtensions = array('jpg', 'jpeg', 'gif', 'png');
+
     public function _construct()
     {
         parent::_construct();
@@ -44,33 +49,31 @@ class Asg_News_Model_News extends Mage_Core_Model_Abstract
      * Upload new image or delete exist image from news
      *
      * @param $data
-     * @param string $oldImage
+     * @throws Mage_Core_Exception]
      */
-    public function processImage($data, $oldImage = "")
+    public function processImage($data)
     {
         $helper = $this->getHelper();
 
-        $newImageName = $oldImage;
+        $newImageName = $this->getImage();
 
         if (isset($_FILES['image']['name']) && $_FILES['image']['name'] != '') {
             $uploader = new Varien_File_Uploader('image');
-            $uploader->setAllowedExtensions(array('jpg', 'jpeg'));
-            $uploader->setAllowRenameFiles(false);
             $uploader->setFilesDispersion(false);
+            $uploader->setAllowedExtensions($this->allowedImageExtensions);
+            $uploader->setAllowRenameFiles(true);
 
-            $fileName = $helper->makeNewImageName();
             $filePath = $helper->getNewsImageBasePath();
 
             try {
-                $uploader->save($filePath, $fileName);
-                $newImageName = $fileName;
+                $uploader->save($filePath);
+                $newImageName = $uploader->getUploadedFileName();
             } catch (Exception $e) {
-                Mage::logException($e);
+                Mage::throwException('Invalid File Type');
             }
         }
 
         if (isset($data['image']['delete']) && $data['image']['delete'] == 1) {
-
             $this->removeImagesFromDisc();
             $newImageName = "";
         }
