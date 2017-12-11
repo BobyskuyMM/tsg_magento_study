@@ -1,13 +1,6 @@
 <?xml version="1.0" ?>
 <layout>
 
-    <default>
-        <reference name="head">
-            <action method="addCss"><stylesheet>css/simplegrid.css</stylesheet></action>
-            <action method="addCss"><stylesheet>css/news.css</stylesheet></action>
-        </reference>
-    </default>
-
     <asgnews_index_newsview>
         <reference name="content">
             <block type="asgnews/view" template="asg_news/view.phtml" />
