@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<layout>
+
+    <asgnews_index_newsview>
+        <reference name="content">
+            <block type="asgnews/view" template="asg_news/view.phtml" />
+        </reference>
+    </asgnews_index_newsview>
+
+    <asgnews_index_newslist>
+        <reference name="content">
+            <block type="asgnews/collection" name="collection" template="asg_news/collection.phtml" />
+        </reference>
+    </asgnews_index_newslist>
+
+</layout>

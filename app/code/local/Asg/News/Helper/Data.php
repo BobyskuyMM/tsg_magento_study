@@ -23,16 +23,6 @@ class Asg_News_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get new image name
-     *
-     * @return string
-     */
-    public function makeNewImageName()
-    {
-        return md5(time()) . '.jpg';
-    }
-
-    /**
      * Get thumbnail image name
      *
      * @param string $imageName

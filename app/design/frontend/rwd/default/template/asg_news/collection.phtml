@@ -12,18 +12,20 @@
                     <div class="col-1-1">
                         <div class="content text-center">
                             <a href="<?php echo $this->getRowUrl($obj); ?>">
-                                <h3><?php echo $obj->getTitle();?></h3>
+                                <h3 class="news-title"><?php echo $this->escapeHtml($obj->getTitle());?></h3>
                             </a>
                         </div>
                     </div>
-                    <div class="col-1-4">
-                        <div class="content">
-                            <img src="<?php echo  $this->getThumbnailUrl($obj->getImage());?>">
+                    <?php if($obj->getImage()) :?>
+                        <div class="col-1-4">
+                            <div class="content">
+                                    <img src="<?php echo  $this->getThumbnailUrl($obj->getImage());?>">
+                            </div>
                         </div>
-                    </div>
+                    <?php endif;?>
                     <div class="col-1-2">
                         <div class="content text-left">
-                            <h3><?php echo $this->catText($obj->getContent());?></h3>
+                            <h3><?php echo  $this->escapeHtml(Mage::helper('core/string')->truncate($obj->getContent(), 50));  ?></h3>
                         </div>
                     </div>
                 </div>

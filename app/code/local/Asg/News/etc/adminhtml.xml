@@ -16,6 +16,12 @@
                         </children>
                     </system>
                 </children>
+                <children>
+                    <asgnews translate="title" module="asgnews">
+                        <title>News</title>
+                        <sort_order>0</sort_order>
+                    </asgnews>
+                </children>
             </admin>
         </resources>
     </acl>

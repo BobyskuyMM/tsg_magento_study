@@ -6,17 +6,18 @@ class Asg_News_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Widget_Gri
     {
         $this->setId('newsGrid');
         $this->_controller = 'adminhtml_news';
-        $this->setUseAjax(true);
 
         $this->setDefaultSort('id');
         $this->setDefaultDir('desc');
+
+        $this->setUseAjax(true);
     }
 
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('asgnews/news')->getCollection();
         $this->setCollection($collection);
-        return parent::_prepareColumns();
+        return parent::_prepareCollection();
     }
 
     protected function _prepareColumns()
@@ -25,13 +26,16 @@ class Asg_News_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('id', array(
             'header' => $helper->__('News ID'),
-            'index' => 'id'
+            'index' => 'id',
+            'filter_index'  => 'id',
         ));
 
         $this->addColumn('image', array(
             'header'    => Mage::helper('asgnews')->__('News image'),
             'align'     =>'left',
             'index'     => 'image',
+            'filter' => false,
+            'sortable'  => false,
             'renderer'  => 'asgnews/adminhtml_news_renderer_image'
         ));
 
@@ -62,6 +66,11 @@ class Asg_News_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return $this->getUrl('*/*/edit', array(
             'id' => $model->getId(),
         ));
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=>true));
     }
 
 }

@@ -31,17 +31,13 @@ class Asg_News_Adminhtml_NewsController extends Mage_Adminhtml_Controller_Action
                 /** @var Asg_News_Model_News $model */
                 $model = Mage::getModel('asgnews/news');
 
-
-                $oldImage = "";
-
                 if ($id) {
                     $model->load($id);
-                    $oldImage = $model->getImage();
                 }
 
                 $model->addData($data);
 
-                $model->processImage($data, $oldImage);
+                $model->processImage($data);
 
                 $model->save();
 
@@ -123,4 +119,14 @@ class Asg_News_Adminhtml_NewsController extends Mage_Adminhtml_Controller_Action
         }
         $this->_redirect('*/*');
     }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+
+        $block = $this->getLayout()->createBlock('asgnews/adminhtml_news_grid')->toHtml();
+
+        $this->getResponse()->setBody($block);
+    }
+
 }
