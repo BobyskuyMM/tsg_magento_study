@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <asgcsv translate="title" module="asgcsv">
+                        <title>Csv</title>
+                        <sort_order>0</sort_order>
+                    </asgcsv>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

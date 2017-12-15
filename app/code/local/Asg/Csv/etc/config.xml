@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_Csv>
+            <version>0.0.1</version>
+        </Asg_Csv>
+    </modules>
+    <adminhtml>
+        <menu>
+            <asgcsv module="asgcsv">
+                <title>Csv</title>
+                <sort_order>77</sort_order>
+                <action>adminhtml/csv/grid</action>
+            </asgcsv>
+        </menu>
+        <layout>
+            <updates>
+                <asgcsv>
+                    <file>asg/csv.xml</file>
+                </asgcsv>
+            </updates>
+        </layout>
+        <events>
+            <controller_action_layout_render_before_adminhtml_catalog_product_index>
+                <observers>
+                    <asgcsv>
+                        <class>asgcsv/adminhtml_observer</class>
+                        <method>addCatalogImportImageButton</method>
+                    </asgcsv>
+                </observers>
+            </controller_action_layout_render_before_adminhtml_catalog_product_index>
+        </events>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <asgcsv before="Mage_Adminhtml">Asg_Csv_Adminhtml</asgcsv>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <global>
+        <helpers>
+            <asgcsv>
+                <class>Asg_Csv_Helper</class>
+            </asgcsv>
+        </helpers>
+
+        <blocks>
+            <asgcsv>
+                <class>Asg_Csv_Block</class>
+            </asgcsv>
+        </blocks>
+        <models>
+            <asgcsv>
+                <class>Asg_Csv_Model</class>
+                <resourceModel>asgcsv_resource</resourceModel>
+            </asgcsv>
+            <asgcsv_resource>
+                <class>Asg_Csv_Model_Resource</class>
+                <entities>
+                    <table_csv>
+                        <table>asg_csv_entities</table>
+                    </table_csv>
+                </entities>
+            </asgcsv_resource>
+        </models>
+        <resources>
+            <asgcsv_setup>
+                <setup>
+                    <module>Asg_Csv</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </asgcsv_setup>
+            <asgcsv_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </asgcsv_write>
+            <asgcsv_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </asgcsv_read>
+        </resources>
+    </global>
+
+</config>
