@@ -1,11 +1,14 @@
+<?php
+/** @var  Asg_Csv_Block_Adminhtml_Errors $this */
+$errors = $this->getErrors();
+?>
+
+<?php if(!empty($errors)):?>
 <div id="csv-error-messages">
     <ul class="messages">
-        <h1>Error phtml</h1>
         <li class="error-msg">
-            <ul>
-                <li><span>Unable to find item to save</span></li>
-                <li><span>Invalid File Type</span></li>
-            </ul>
+            <span><?php echo $errors;?></span>
         </li>
     </ul>
 </div>
+<?php endif;?>

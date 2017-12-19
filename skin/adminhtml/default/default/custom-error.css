@@ -1,0 +1,4 @@
+#csv-error-messages ul li{
+    overflow-y: scroll;
+    max-height: 300px;
+}

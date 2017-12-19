@@ -10,6 +10,13 @@ class Asg_Csv_Block_Adminhtml_Errors extends Mage_Adminhtml_Block_Abstract
         $this->_template = "asgcsv/validation-errors.phtml";
     }
 
+    /**
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return Mage::registry('csv_parse_errors');
+    }
 
 
 

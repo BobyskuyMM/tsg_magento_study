@@ -24,8 +24,15 @@
 
     <adminhtml_csv_upload> <!-- layout update handle -->
         <reference name="content"> <!-- parent block of our custom block -->
-            <block type="asgcsv/adminhtml_errors" name="csv.upload.errors" before="content" /> <!-- definition of custom block -->
+            <block type="asgcsv/adminhtml_errors" name="csv.upload.errors" before="content" >
+            </block>
+            <!-- definition of custom block -->
         </reference>
+
+        <reference name='head'>
+            <action method="addCss"><stylesheet>custom-error.css</stylesheet></action>
+        </reference>
+
     </adminhtml_csv_upload>
 
 </layout>

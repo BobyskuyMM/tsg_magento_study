@@ -56,10 +56,5 @@ class Asg_Csv_Block_Adminhtml_Csv_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::_prepareColumns();
     }
 
-    public function getRowUrl($quotes)
-    {
-        return $this->getUrl('*/*/grid', array('_current' => true));
-    }
-
 
 }

@@ -14,12 +14,11 @@ class Asg_Csv_Adminhtml_CsvController extends Mage_Adminhtml_Controller_Action
                 $model = Mage::getModel('asgcsv/csv');
                 $model->parseAndUploadCsvFile();
                 $session->addSuccess($this->__('Csv file was saved successfully'));
-                $this->_redirect('*/*/');
+                $this->_redirect('*/catalog_product/index');
             } catch (Exception $e) {
-                $session->addError($e->getMessage());
+                Mage::register('csv_parse_errors', $e->getMessage());
             }
         }
-//        $session->addError($this->__('Unable to find item to save'));
         $this->renderLayout();
     }
 
@@ -37,18 +36,13 @@ class Asg_Csv_Adminhtml_CsvController extends Mage_Adminhtml_Controller_Action
     {
         $this->loadLayout();
         $id = $this->getRequest()->get('id');
-        if (!$id) {
+        if ($id) {
             Mage::register('csv_selected_product_id', $id);
             $this->getResponse()->setBody(
                 $this->getLayout()->createBlock('asgcsv/adminhtml_csv_grid')->toHtml()
             );
         }
-//        else {
-//            Mage::getSingleton('adminhtml/session')->addError(
-//                $this->__("Error. Can't find product id!")
-//            );
-////            $this->renderLayout();
-//        }
+
     }
 
 }
