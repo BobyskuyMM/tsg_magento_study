@@ -92,4 +92,16 @@
         </resources>
     </global>
 
+    <crontab>
+        <jobs>
+            <csv_product_image_import>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>asgcsv/csv::handleTheQueue</model>
+                </run>
+            </csv_product_image_import>
+        </jobs>
+    </crontab>
 </config>

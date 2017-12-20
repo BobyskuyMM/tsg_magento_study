@@ -12,9 +12,4 @@ class Asg_Csv_Block_Adminhtml_Csv extends Mage_Adminhtml_Block_Widget_Grid_Conta
         $this->_headerText = $helper->__('Csv');
     }
 
-
-
-
-
-
 }

@@ -42,7 +42,5 @@ class Asg_Csv_Adminhtml_CsvController extends Mage_Adminhtml_Controller_Action
                 $this->getLayout()->createBlock('asgcsv/adminhtml_csv_grid')->toHtml()
             );
         }
-
     }
-
 }

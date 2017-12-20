@@ -4,7 +4,6 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
 {
     /**
      * Maximum SKU string length
-     *
      * @var string
      */
     const SKU_MAX_LENGTH = 64;
@@ -14,6 +13,10 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
     const STATUS_COMPLETE = 3;
     const STATUS_NOT_FOUND = 404;
 
+    /**
+     * Validation errors lis
+     * @var $validationErrors array
+     */
     private $validationErrors = array();
 
     public function _construct()
@@ -22,9 +25,23 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         $this->_init('asgcsv/csv');
     }
 
+    public function getStatusesForSelect()
+    {
+        /** @var Asg_Csv_Helper_Data $helper */
+        $helper = Mage::helper('asgcsv');
+
+        return array(
+            self::STATUS_NEW        => $helper->__('In the queue'),
+            self::STATUS_ERROR      => $helper->__('Error'),
+            self::STATUS_COMPLETE   => $helper->__('Uploaded'),
+            self::STATUS_NOT_FOUND  => $helper->__('Retry'),
+        );
+    }
+
     /**
      * Upload new image or delete exist image from news
      *
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function parseAndUploadCsvFile()
@@ -42,7 +59,9 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         }
 
         if ($data->getResult()) {
-                $this->multipleInsert($data->getItems());
+            /** @var Asg_Csv_Model_Resource_Csv $resourceModel */
+            $resourceModel = Mage::getResourceModel('asgcsv/csv');
+            $resourceModel->multipleInsert($data->getItems());
         } else {
             Mage::throwException($this->getStringErrors($data->getErrors()));
         }
@@ -51,6 +70,7 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Convert errors array to string, use recursion call
      * @param $errors
      * @return string
      */
@@ -61,14 +81,14 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
             if (is_array($value)) {
                 $errorString .= $this->getStringErrors($value);
             } else {
-                $errorString .= $value . "<br>";
+                $errorString .= $value . "<br/>";
             }
         }
         return $errorString;
     }
 
     /**
-     * Return uploaded file name or false if file can't upload
+     * Returns uploaded file name or false if file can't upload
      * @return bool|string
      * @throws Mage_Core_Exception
      */
@@ -98,6 +118,10 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         return $uploadedFile;
     }
 
+    /**
+     * Delete file from storage
+     * @param $filename
+     */
     private function deleteFile($filename)
     {
         /** @var Asg_Csv_Helper_Data $helper */
@@ -107,6 +131,7 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Method read CSV file, parse, validate adn write data to db
      * @param $file
      * @return Varien_Object
      * @throws Exception
@@ -148,7 +173,6 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         }
 
         $productList = $this->getProductIdsArrayBySku(array_values($skuList));
-
         $resultItems = array();
         foreach ($items as $item) {
             $sku = $item['sku'];
@@ -157,7 +181,6 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
             if (!empty($productList[$sku])) {
                 $resultItems[] = array(
                     'product_id' => $productList[$sku],
-                    'sku' => $sku,
                     'url' => $url,
                     'status' => self::STATUS_NEW,
                     'created_at' => Mage::getSingleton('core/date')->gmtDate(),
@@ -169,9 +192,7 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
                     . $sku;
             }
         }
-
         $result = $this->getResponseObject();
-
         if (!count($errorsStringArray)) {
             $result->setResult(true);
             $result->setItems($resultItems);
@@ -179,12 +200,12 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
             $result->setResult(false);
             $result->setErrors($errorsStringArray);
         }
-
         return $result;
     }
 
 
     /**
+     * Returns product ids list by sku list
      * @param $skuList
      * @return mixed
      */
@@ -207,6 +228,10 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         return $productList;
     }
 
+    /**
+     * Validate SKU and URL property on model
+     * @return bool
+     */
     public function validate()
     {
         $validSku = false;
@@ -217,7 +242,6 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
 
         $sku = $this->getSku();
         $url = $this->getUrl();
-
         if (empty($sku)) {
             $errorsStringArray[] = "SKU can't be empty";
         } else {
@@ -236,78 +260,119 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
                 $validUrl = true;
             }
         }
-
         $isValid = false;
         if ($validUrl && $validSku) {
             $isValid = true;
         } else {
             $this->validationErrors = $errorsStringArray;
         }
-
         return $isValid;
     }
 
-    public function handleTheQueue()
+    /**
+     * Method for process CSV rows on CRON
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @throws Exception
+     */
+    public function handleTheQueue(Mage_Cron_Model_Schedule $schedule)
     {
-        /**
-        $date = new Zend_Date(Mage::getModel('core/date')->gmtTimestamp());
-        $date->subDay(1);
-        $timeStamp = gmdate("Y-m-d H:i:s", $date->getTimestamp());
-         */
-
         /** @var array<Asg_Csv_Model_Csv> $csvRowsCollection */
-        $csvRowsCollection = Mage::getResourceModel('asgcsv/csv_collection');
-
-        $csvRowsCollection->addFieldToFilter('status', array('in' => self::STATUS_NEW))
+        $newRowsCollection = Mage::getResourceModel('asgcsv/csv_collection');
+        $newRowsCollection->addFieldToFilter('status', array('in' => self::STATUS_NEW))
             ->load();
 
-        foreach ($csvRowsCollection as $item) {
+        foreach ($newRowsCollection as $item) {
+            $this->downloadImageAndSaveToProduct($item);
+        }
 
-            $url = $item->getUrl();
+        $date = new Zend_Date(Mage::getModel('core/date')->gmtTimestamp());
+        $date->subDay(1);
+        $previousDayDateTimestamp = gmdate("Y-m-d H:i:s", $date->getTimestamp());
 
-            $handle = curl_init($url);
-            curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        /** @var array<Asg_Csv_Model_Csv> $retryRowsCollection */
+        $retryRowsCollection = Mage::getResourceModel('asgcsv/csv_collection');
+        $retryRowsCollection
+            ->addFieldToFilter('status', array('in' => self::STATUS_NOT_FOUND))
+            ->addFieldToFilter('updated_at', array('to' => $previousDayDateTimestamp));
 
-            /* Get the HTML or whatever is linked in $url. */
-            $response = curl_exec($handle);
-
-            /* Check for 404 (file not found). */
-            $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-
-            if ($httpCode == 200) {
-                $item->setStatus(self::STATUS_COMPLETE);
-                $this->setError("");
-            } else {
-                if ($httpCode == 404) {
-                    $item->setStatus(self::STATUS_NOT_FOUND);
-                    $item->setError("Image not found");
-                } else {
-                    $item->setStatus(self::STATUS_ERROR);
-                    $item->setError("Undefined error. Error code: " . $httpCode);
-                }
-            }
-
-            curl_close($handle);
-
-            $item->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
-            $item->save();
+        foreach ($retryRowsCollection as $item) {
+            $this->downloadImageAndSaveToProduct($item);
         }
     }
 
-    /* gets the data from a URL */
-    function getUrlData($url) {
-        $ch = curl_init();
-        $timeout = 5;
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        return $data;
+    /**
+     * Download image and process
+     * @param Asg_Csv_Model_Csv $item
+     * @throws Exception
+     */
+    private function downloadImageAndSaveToProduct(Asg_Csv_Model_Csv $item)
+    {
+        $url = $item->getUrl();
+        $curl = new Varien_Http_Adapter_Curl();
+        $curl->setConfig(array('timeout' => 15, 'header' => false,));
+
+        $curl->write(Zend_Http_Client::GET, $url);
+        $data = $curl->read();
+        $httpCode = $curl->getInfo(CURLINFO_HTTP_CODE);
+        $curl->close();
+
+        if ($httpCode == 200 ) {
+            $item->setStatus(self::STATUS_COMPLETE);
+            $this->setError("");
+
+            $fileInfo = pathinfo($url);
+            $fileName = uniqid() . "_" . $fileInfo['basename'];
+
+            $file = new Varien_Io_File();
+            $file->setAllowCreateFolders(true);
+            $path = Mage::getBaseDir('media') . DS . 'csv_import';
+            $file->open(array('path' => $path));
+            $file->write($fileName, $data);
+            $file->close();
+            $image = $path . DS . $fileName;
+            $item->setSize(filesize($image));
+            $this->setImageToProduct($item->getProductId(), $image);
+        } else {
+            if ($httpCode == 404 ) {
+                $item->setStatus(self::STATUS_NOT_FOUND);
+            } else {
+                $item->setStatus(self::STATUS_ERROR);
+                $item->setError("Undefined error. Error code: " . $httpCode);
+            }
+        }
+        $item->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
+        $item->save();
     }
 
     /**
-     *
+     * Method for add image to product
+     * @param $productId
+     * @param $imagePath
+     * @throws Exception
+     */
+    private function setImageToProduct($productId, $imagePath)
+    {
+        /** @var Mage_Catalog_Model_Product $product */
+        $product = Mage::getModel('catalog/product')->load($productId);
+
+        $mediaAttribute = array();
+        if (!$product->getImage()) {
+            $mediaAttribute[] = 'image';
+        }
+        if (!$product->getSmallImage()) {
+            $mediaAttribute[] = 'small_image';
+        }
+        if(!$product->getThumbnail()) {
+            $mediaAttribute[] = 'thumbnail';
+        }
+
+        $product->addImageToMediaGallery($imagePath, $mediaAttribute, false, false);
+        $product->save();
+    }
+
+    /**
+     * Clear validation errors
      */
     private function clearValidationErrors()
     {
@@ -315,6 +380,7 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Returns validation errors
      * @return array
      */
     public function getValidationErrors()
@@ -346,25 +412,6 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
     {
         $isValid = Zend_Uri::check($url);
         return $isValid;
-    }
-
-    /**
-     * @param $dataArray
-     * @return int
-     * @throws Zend_Db_Exception
-     */
-    private function multipleInsert($dataArray)
-    {
-        /** @var Mage_Core_Model_Resource $resource */
-        $resource = Mage::getSingleton('core/resource');
-
-        /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
-        $connection = $resource->getConnection('core_write');
-
-        return $connection->insertMultiple(
-            Mage::getSingleton('core/resource')->getTableName('asgcsv/table_csv'),
-            $dataArray
-        );
     }
 
     /**

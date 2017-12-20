@@ -17,16 +17,11 @@ $table = $installer->getConnection()
     ->addColumn('url', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable'  => false,
     ))
-    ->addColumn('sku', Varien_Db_Ddl_Table::TYPE_TEXT, 64, array(
-        'nullable'  => false,
-    ))
-
     ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
     ), 'Product id')
-
     ->addForeignKey(
         $installer->getFkName('asgcsv/table_csv', 'product_id', 'catalog/product', 'entity_id'),
         'product_id', $installer->getTable('catalog/product'), 'entity_id',

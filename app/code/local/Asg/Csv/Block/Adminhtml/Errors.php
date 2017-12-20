@@ -17,9 +17,4 @@ class Asg_Csv_Block_Adminhtml_Errors extends Mage_Adminhtml_Block_Abstract
     {
         return Mage::registry('csv_parse_errors');
     }
-
-
-
-
-
 }

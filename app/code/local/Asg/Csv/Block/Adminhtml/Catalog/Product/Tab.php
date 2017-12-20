@@ -11,8 +11,6 @@ class Asg_Csv_Block_Adminhtml_Catalog_Product_Tab extends Mage_Adminhtml_Block_T
     public function _construct()
     {
         parent::_construct();
-
-//        $this->setTemplate('asgcsv/catalog/product/tab.phtml');
     }
 
     /**

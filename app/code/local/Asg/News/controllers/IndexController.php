@@ -23,11 +23,4 @@ class Asg_News_IndexController extends Mage_Core_Controller_Front_Action
         $this->_forward('noRoute');
         return;
     }
-
-    public function testAction()
-    {
-        /** @var Asg_Csv_Model_Csv $model */
-        $model = Mage::getModel('asgcsv/csv');
-        $model->handleTheQueue();
-    }
 }
