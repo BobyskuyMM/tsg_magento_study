@@ -1,0 +1,14 @@
+<?php
+/** @var  Asg_Csv_Block_Adminhtml_Errors $this */
+$errors = $this->getErrors();
+?>
+
+<?php if(!empty($errors)):?>
+<div id="csv-error-messages">
+    <ul class="messages">
+        <li class="error-msg">
+            <span><?php echo $errors;?></span>
+        </li>
+    </ul>
+</div>
+<?php endif;?>

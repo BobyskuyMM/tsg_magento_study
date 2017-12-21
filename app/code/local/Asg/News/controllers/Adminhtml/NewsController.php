@@ -84,7 +84,7 @@ class Asg_News_Adminhtml_NewsController extends Mage_Adminhtml_Controller_Action
         /** @var Mage_Adminhtml_Model_Session $session */
         $session = Mage::getSingleton('adminhtml/session');
 
-        if ($id) {
+        if (!$id) {
             /** @var Asg_News_Model_News $model */
             $model = Mage::getModel('asgnews/news')->load($id);
 
