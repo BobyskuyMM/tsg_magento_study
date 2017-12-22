@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_Star>
+            <version>0.0.1</version>
+        </Asg_Star>
+    </modules>
+
+    <global>
+        <models>
+            <asgstar>
+                <class>Asg_Star_Model</class>
+            </asgstar>
+        </models>
+    </global>
+
+    <default>
+        <carriers>
+            <asgstar>
+                <active>1</active>
+                <model>asgstar/carrier_star</model>
+                <title>Star Shipping Carrier</title>
+                <sort_order>10</sort_order>
+
+            </asgstar>
+        </carriers>
+
+    </default>
+
+    <global>
+        <helpers>
+            <asgstar>
+                <class>Asg_Star_Helper</class>
+            </asgstar>
+        </helpers>
+    </global>
+
+</config>

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_Kasa>
+            <version>0.0.1</version>
+        </Asg_Kasa>
+    </modules>
+
+    <global>
+        <models>
+            <asgkasa>
+                <class>Asg_Kasa_Model</class>
+            </asgkasa>
+        </models>
+        <helpers>
+            <asgkasa>
+                <class>Asg_Kasa_Helper</class>
+            </asgkasa>
+        </helpers>
+        <blocks>
+            <asgkasa>
+                <class>Asg_Kasa_Block</class>
+            </asgkasa>
+        </blocks>
+
+        <events>
+            <payment_method_is_active>
+                <observers>
+                    <paymentfilter_payment_method_is_active>
+                        <type>singleton</type>
+                        <class>asgkasa/observer_paymentChecker</class>
+                        <method>paymentMethodIsActive</method>
+                    </paymentfilter_payment_method_is_active>
+                </observers>
+            </payment_method_is_active>
+        </events>
+
+    </global>
+
+    <default>
+        <payment>
+            <asgkasa>
+                <active>1</active>
+                <model>asgkasa/payment_kasa</model>
+                <order_status>pending</order_status>
+                <title>CustomPaymentMethod</title>
+                <allowspecific>0</allowspecific>
+                <payment_action>sale</payment_action>
+            </asgkasa>
+        </payment>
+    </default>
+
+</config>
