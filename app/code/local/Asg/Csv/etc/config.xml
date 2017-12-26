@@ -6,13 +6,6 @@
         </Asg_Csv>
     </modules>
     <adminhtml>
-        <menu>
-            <asgcsv module="asgcsv">
-                <title>Csv</title>
-                <sort_order>77</sort_order>
-                <action>adminhtml/csv/grid</action>
-            </asgcsv>
-        </menu>
         <layout>
             <updates>
                 <asgcsv>
