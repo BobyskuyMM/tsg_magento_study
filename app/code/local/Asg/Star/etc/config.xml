@@ -5,34 +5,44 @@
             <version>0.0.1</version>
         </Asg_Star>
     </modules>
-
     <global>
         <models>
-            <asgstar>
+            <asg_star>
                 <class>Asg_Star_Model</class>
-            </asgstar>
+            </asg_star>
         </models>
-    </global>
-
-    <default>
-        <carriers>
-            <asgstar>
-                <active>1</active>
-                <model>asgstar/carrier_star</model>
-                <title>Star Shipping Carrier</title>
-                <sort_order>10</sort_order>
-
-            </asgstar>
-        </carriers>
-
-    </default>
-
-    <global>
         <helpers>
-            <asgstar>
+            <asg_star>
                 <class>Asg_Star_Helper</class>
-            </asgstar>
+            </asg_star>
         </helpers>
     </global>
-
+    <default>
+        <carriers>
+            <asg_star>
+                <active>1</active>
+                <model>asg_star/carrier_star</model>
+                <title>Star Delivery</title>
+                <sort_order>10</sort_order>
+            </asg_star>
+        </carriers>
+    </default>
+    <global>
+        <helpers>
+            <asg_star>
+                <class>Asg_Star_Helper</class>
+            </asg_star>
+        </helpers>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Asg_Star>
+                    <files>
+                        <default>Asg_Star.csv</default>
+                    </files>
+                </Asg_Star>
+            </modules>
+        </translate>
+    </frontend>
 </config>

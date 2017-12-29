@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_kasa_index>
+        <reference name="content">
+            <block type="asg_kasa/adminhtml_kasa" name="kasa.grid_container" />
+        </reference>
+    </adminhtml_kasa_index>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_totals">
+            <block type="asg_kasa/adminhtml_sales_order_totals_kasa" name="total_kasa" />
+        </reference>
+    </adminhtml_sales_order_view>
+
+</layout>

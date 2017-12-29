@@ -3,7 +3,7 @@
     <sections>
         <carriers>
             <groups>
-                <asgstar translate="label" module="asgstar">
+                <asg_star translate="label" module="asg_star">
                     <label>Star delivery</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
@@ -39,7 +39,7 @@
                         </sort_order>
 
                     </fields>
-                </asgstar>
+                </asg_star>
             </groups>
         </carriers>
     </sections>

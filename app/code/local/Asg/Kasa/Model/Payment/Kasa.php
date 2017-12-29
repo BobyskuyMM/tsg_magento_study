@@ -2,18 +2,23 @@
 
 class Asg_Kasa_Model_Payment_Kasa extends Mage_Payment_Model_Method_Abstract
 {
-    protected $_code = 'asgkasa';
+    const CODE = 'asg_kasa';
+    protected $_code = 'asg_kasa';
 
     protected $_canUseCheckout = true;
 
+
     /**
-     * Return Order place redirect url
-     *
-     * @return string
+     * @param string $code
+     * @return bool
      */
-    public function getOrderPlaceRedirectUrl()
+    public static function isSelectedPaymentKasa($code)
     {
-        //when you click on place order you will be redirected on this url, if you don't want this action remove this method
-        return Mage::getUrl('customcard/standard/redirect', array('_secure' => true));
+        $isSelected = false;
+        if(self::CODE == $code) {
+            $isSelected = true;
+        }
+
+        return $isSelected;
     }
 }

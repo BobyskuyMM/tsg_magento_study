@@ -3,7 +3,7 @@
     <sections>
         <payment>
             <groups>
-                <asgkasa translate="label">
+                <asg_kasa translate="label">
                     <label>Kasa </label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
@@ -41,7 +41,7 @@
                             <show_in_store>0</show_in_store>
                         </sort_order>
                     </fields>
-                </asgkasa>
+                </asg_kasa>
             </groups>
         </payment>
     </sections>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <asg_kasa translate="title" module="asg_kasa">
+                        <title>Kasa</title>
+                        <sort_order>0</sort_order>
+                    </asg_kasa>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
