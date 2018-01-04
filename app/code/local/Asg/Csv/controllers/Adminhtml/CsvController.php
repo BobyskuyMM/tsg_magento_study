@@ -2,6 +2,16 @@
 
 class Asg_Csv_Adminhtml_CsvController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Check for is allowed
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
+    }
+
     public function uploadAction()
     {
         $this->loadLayout();

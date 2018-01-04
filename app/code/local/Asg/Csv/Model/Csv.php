@@ -120,14 +120,11 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
 
     /**
      * Delete file from storage
-     * @param $filename
+     * @param $fileLocation
      */
-    private function deleteFile($filename)
+    private function deleteFile($fileLocation)
     {
-        /** @var Asg_Csv_Helper_Data $helper */
-        $helper = Mage::helper('asgcsv');
-        $path = $helper->getCsvUploadPath();
-        unlink($path . $filename);
+        unlink($fileLocation);
     }
 
     /**
@@ -357,13 +354,13 @@ class Asg_Csv_Model_Csv extends Mage_Core_Model_Abstract
         $product = Mage::getModel('catalog/product')->load($productId);
 
         $mediaAttribute = array();
-        if (!$product->getImage()) {
+        if (!$product->getImage() || "no_selection" == $product->getImage()) {
             $mediaAttribute[] = 'image';
         }
-        if (!$product->getSmallImage()) {
+        if (!$product->getSmallImage() || "no_selection" == $product->getSmallImage()) {
             $mediaAttribute[] = 'small_image';
         }
-        if(!$product->getThumbnail()) {
+        if(!$product->getThumbnail() || "no_selection" == $product->getThumbnail()) {
             $mediaAttribute[] = 'thumbnail';
         }
 

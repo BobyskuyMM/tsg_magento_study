@@ -16,12 +16,6 @@
         </reference>
     </adminhtml_catalog_product_edit>
 
-    <adminhtml_csv_images>
-        <block type="core/text_list" name="root" output="toHtml">
-            <block type="asgcsv/catalog_product_edit_tab_reviews" name="admin.csv.images"/>
-        </block>
-    </adminhtml_csv_images>
-
     <adminhtml_csv_upload> <!-- layout update handle -->
         <reference name="content"> <!-- parent block of our custom block -->
             <block type="asgcsv/adminhtml_errors" name="csv.upload.errors" before="content" >
