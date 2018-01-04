@@ -1,0 +1,12 @@
+<config>
+    <modules>
+        <Asg_Kasa>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales/>
+                <Mage_Checkout/>
+            </depends>
+        </Asg_Kasa>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<layout>
+
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="asg_kasa/order_totals"  name="asg_kasa_total"  />
+        </reference>
+    </sales_order_view>
+
+</layout>

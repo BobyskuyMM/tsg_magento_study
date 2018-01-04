@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Asg_Star>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Asg_Star>
+    </modules>
+</config>
