@@ -21,6 +21,10 @@ class Asg_Kasa_Model_Observer_PaymentChecker
                 } else {
                     $result->isAvailable = false;
                 }
+            } else {
+                if (Asg_Kasa_Model_Payment_Kasa::isSelectedPaymentKasa($method->getCode())) {
+                    $result->isAvailable = false;
+                }
             }
         }
     }

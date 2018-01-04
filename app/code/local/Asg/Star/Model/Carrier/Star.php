@@ -165,7 +165,11 @@ class Asg_Star_Model_Carrier_Star
      */
     private function calculateThirdMethodSippingPrice(Mage_Shipping_Model_Rate_Request $request)
     {
-        $itemsTotal = $this->getItemsTotal($request);
+        /** @var Asg_Star_Helper_Data $helper */
+        $helper = Mage::helper('asg_star');
+        $items = $request->getAllItems();
+        $itemsTotal = $helper->getItemsTotal($items);
+
         if ($itemsTotal < 50) {
             $shippingPrice = 10.00;
         } elseif ($itemsTotal < 100) {
