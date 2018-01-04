@@ -17,10 +17,12 @@ class Asg_News_IndexController extends Mage_Core_Controller_Front_Action
                 Mage::register('current_news', $news);
                 $this->loadLayout();
                 $this->renderLayout();
+            } else {
+                $this->_forward('noRoute');
             }
+        } else {
+            $this->_forward('noRoute');
         }
-
-        $this->_forward('noRoute');
         return;
     }
 }
