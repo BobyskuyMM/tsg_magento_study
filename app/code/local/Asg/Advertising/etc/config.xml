@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Asg_Advertising>
+            <version>0.0.1</version>
+        </Asg_Advertising>
+    </modules>
+    <global>
+        <models>
+            <asg_advertising>
+                <class>Asg_Advertising_Model</class>
+            </asg_advertising>
+        </models>
+        <helpers>
+            <asg_advertising>
+                <class>Asg_Advertising_Helper</class>
+            </asg_advertising>
+        </helpers>
+        <blocks>
+            <asg_advertising>
+                <class>Asg_Advertising_Block</class>
+            </asg_advertising>
+        </blocks>
+        <models>
+            <asg_advertising>
+                <class>Asg_Advertising_Model</class>
+                <resourceModel>asg_advertising_resource</resourceModel>
+            </asg_advertising>
+            <asg_advertising_resource>
+                <class>Asg_Advertising_Model_Resource</class>
+                <entities>
+                    <table_banner>
+                        <table>asg_advertising_banners_entities</table>
+                    </table_banner>
+                </entities>
+            </asg_advertising_resource>
+        </models>
+        <resources>
+            <asg_advertising_setup>
+                <setup>
+                    <module>Asg_Advertising</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </asg_advertising_setup>
+            <asg_advertising_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </asg_advertising_write>
+            <asg_advertising_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </asg_advertising_read>
+        </resources>
+
+
+
+    </global>
+    <adminhtml>
+        <menu>
+            <asg_advertising module="asg_advertising">
+                <title>Banner</title>
+                <sort_order>77</sort_order>
+                <action>adminhtml/banner</action>
+            </asg_advertising>
+        </menu>
+        <layout>
+            <updates>
+                <asg_advertising>
+                    <file>asg/advertising.xml</file>
+                </asg_advertising>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <asg_advertising before="Mage_Adminhtml">Asg_Advertising_Adminhtml</asg_advertising>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
