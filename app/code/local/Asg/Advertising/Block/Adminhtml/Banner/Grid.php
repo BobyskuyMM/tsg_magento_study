@@ -4,11 +4,13 @@ class Asg_Advertising_Block_Adminhtml_Banner_Grid extends Mage_Adminhtml_Block_W
 {
     protected function _construct()
     {
-        $this->setId('advertising_grid');
+        $this->setId('advertisingGrid');
         $this->_controller ='adminhtml_banner';
-        $this->setUseAjax(true);
+
         $this->setDefaultSort('id');
         $this->setDefaultDir('desc');
+
+        $this->setUseAjax(true);
     }
 
     protected function _prepareCollection()
@@ -55,4 +57,10 @@ class Asg_Advertising_Block_Adminhtml_Banner_Grid extends Mage_Adminhtml_Block_W
         ));
         parent::_prepareColumns();
     }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=>true));
+    }
+
 }

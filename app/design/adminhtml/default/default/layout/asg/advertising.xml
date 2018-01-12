@@ -5,4 +5,15 @@
             <block type="asg_advertising/adminhtml_banner" name="banner.grid_container" />
         </reference>
     </adminhtml_banner_index>
+
+    <adminhtml_banner_new>
+        <reference name="head">
+            <action method="addJs"><script>asg/advertising/adminhtml/cropperjs/cropper.min.js</script></action>
+            <action method="addJs"><script>asg/advertising/adminhtml/jquery-3.2.1.min.js</script></action>
+            <action method="addJs"><script>asg/advertising/adminhtml/edit-banner.js</script></action>
+
+            <action method="addItem"><type>js_css</type><name>js/asg/advertising/adminhtml/cropperjs/cropper.min.css</name></action>
+        </reference>
+        <update handle="adminhtml_news_edit"/>
+    </adminhtml_banner_new>
 </layout>
