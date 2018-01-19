@@ -1,19 +1,40 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+
+    <default>
+        <block type="core/text_list" name="catalog_product_banner" as="catalog_product_banner" >
+            <label>catalog_product_banner</label>
+        </block>
+    </default>
+
     <adminhtml_banner_index>
         <reference name="content">
             <block type="asg_advertising/adminhtml_banner" name="banner.grid_container" />
         </reference>
     </adminhtml_banner_index>
 
-    <adminhtml_banner_new>
+    <adminhtml_widget_instance_edit>
         <reference name="head">
-            <action method="addJs"><script>asg/advertising/adminhtml/cropperjs/cropper.min.js</script></action>
+
+            <!--<action method="addLinkRel">-->
+                <!--<rel>stylesheet</rel>-->
+                <!--<href>//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css</href>-->
+            <!--</action>-->
+
+            <action method="addItem"><type>js_css</type><name>asg/advertising/adminhtml/bootstrap/css/bootstrap.min.css</name></action>
+            <action method="addItem"><type>js_css</type><name>asg/advertising/adminhtml/cropper/cropper.min.css</name></action>
+
+            <action method="addItem"><type>js_css</type><name>asg/advertising/adminhtml/cropper/custom.css</name></action>
+
             <action method="addJs"><script>asg/advertising/adminhtml/jquery-3.2.1.min.js</script></action>
+            <action method="addJs"><script>asg/advertising/adminhtml/cropper/cropper.js</script></action>
             <action method="addJs"><script>asg/advertising/adminhtml/edit-banner.js</script></action>
 
-            <action method="addItem"><type>js_css</type><name>js/asg/advertising/adminhtml/cropperjs/cropper.min.css</name></action>
         </reference>
-        <update handle="adminhtml_news_edit"/>
+
+    </adminhtml_widget_instance_edit>
+
+    <adminhtml_banner_new>
+        <update handle="adminhtml_banner_edit"/>
     </adminhtml_banner_new>
 </layout>
