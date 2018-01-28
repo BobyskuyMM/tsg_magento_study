@@ -4,13 +4,6 @@
         <name>Advertising catalog banners</name>
         <description>Add banners to catalog products list and grid views</description>
         <parameters>
-            <link_options>
-                <label>Banner Options</label>
-                <visible>1</visible>
-                <required>1</required>
-                <type>multiselect</type>
-                <source_model>asg_advertising/options</source_model>
-            </link_options>
 
             <cropper translate="label">
                 <helper_block>
@@ -18,7 +11,6 @@
                 </helper_block>
                 <sort_order>10</sort_order>
             </cropper>
-
 
         </parameters>
         <supported_blocks>

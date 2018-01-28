@@ -56,34 +56,39 @@
             </asg_advertising_read>
         </resources>
 
+        <events>
+            <widget_widget_instance_save_before>
+                <observers>
+                    <asg_advertising_widget_widget_instance_save_before>
+                        <type>singleton</type>
+                        <class>asg_advertising/observer_cropper</class>
+                        <method>saveCroppedImage</method>
+                    </asg_advertising_widget_widget_instance_save_before>
+                </observers>
+            </widget_widget_instance_save_before>
+        </events>
 
-
+        <events>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <asg_advertising_catalog_product_collection_load_after>
+                        <type>singleton</type>
+                        <class>asg_advertising/observer_widgetBannerChecker</class>
+                        <method>showBanners</method>
+                    </asg_advertising_catalog_product_collection_load_after>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
     </global>
-    <adminhtml>
-        <menu>
-            <asg_advertising module="asg_advertising">
-                <title>Banners</title>
-                <sort_order>77</sort_order>
-                <action>adminhtml/banner</action>
-            </asg_advertising>
-        </menu>
+
+    <frontend>
         <layout>
             <updates>
                 <asg_advertising>
-                    <file>asg/advertising.xml</file>
+                    <file>asg_advertising.xml</file>
                 </asg_advertising>
             </updates>
         </layout>
-    </adminhtml>
-    <admin>
-        <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <asg_advertising before="Mage_Adminhtml">Asg_Advertising_Adminhtml</asg_advertising>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers>
-    </admin>
+    </frontend>
+
 </config>

@@ -32,4 +32,21 @@ class Asg_Advertising_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->allowedImageExtensions;
     }
 
+    /**
+     * @param string $encodeImage
+     * @param string $type Can't be: grid or list
+     *
+     * @return string
+     */
+    public function saveBAse64ImageToFile($encodeImage, $type)
+    {
+        $base_to_php = explode(',', $encodeImage);
+        $data = base64_decode($base_to_php[1]);
+        $imageName = $type . '_' . uniqid() . '.png';
+        $filePath = $this->getBannersUploadPath() . $imageName;
+        file_put_contents($filePath, $data);
+
+        return $this->generateBannerImageFrontendUrl($imageName);
+    }
+
 }
