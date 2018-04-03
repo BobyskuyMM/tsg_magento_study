@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<widgets>
+    <asg_advertising_banners type="asg_advertising/banners" translate="name description" module="asg_advertising">
+        <name>Advertising catalog banners</name>
+        <description>Add banners to catalog products list and grid views</description>
+        <parameters>
+
+            <cropper translate="label">
+                <helper_block>
+                    <type>asg_advertising/adminhtml_banner_edit_options</type>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </cropper>
+
+        </parameters>
+        <supported_blocks>
+            <left_column_top>
+                <block_name>banner_catalog_show</block_name>
+            </left_column_top>
+        </supported_blocks>
+
+    </asg_advertising_banners>
+</widgets>

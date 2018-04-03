@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Asg_Advertising>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Asg_Advertising>
+    </modules>
+</config>

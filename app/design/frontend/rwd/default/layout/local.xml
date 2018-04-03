@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<layout>
+    <!-- category pages with layered navigation -->
+    <catalog_category_layered>
+        <update handle="custom_top_container" />
+    </catalog_category_layered>
+    <!-- category pages without layered navigation -->
+    <catalog_category_default>
+        <update handle="custom_top_container" />
+    </catalog_category_default>
+    <!-- custom block container on that page -->
+    <custom_top_container>
+        <reference name="left">
+            <block name="banner_catalog_show" type="core/text_list" before="-" translate="label">
+                <label>banner_catalog_show</label>
+            </block>
+        </reference>
+    </custom_top_container>
+</layout>

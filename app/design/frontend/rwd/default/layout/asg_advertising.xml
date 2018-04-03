@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<layout>
+
+    <catalog_category_view>
+        <reference name="head">
+            <action method="addJs"><script>asg/advertising/catalog/banners-view.js</script></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="asg_advertising/catalog_banner"
+                   name="asg_advertising_catalog_banner"
+                   after="-"
+            />
+        </reference>
+    </catalog_category_view>
+
+</layout>
